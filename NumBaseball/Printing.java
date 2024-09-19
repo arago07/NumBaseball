@@ -11,39 +11,61 @@ public class Printing {
     public Printing(Preparing preparing) {
         this.preparing = preparing;
     }
+    ArrayList<Integer> inputList = new ArrayList<>();
 
     public ArrayList<Integer> guide() {
-        ArrayList<Integer> inputList = new ArrayList<>();
+
         boolean rInput = false;
         Scanner sc = new Scanner(System.in);
+        try{
+            System.out.println("환영합니다. 원하시는 번호를 입력해주세요. 1. 게임 시작하기 2. 게임 기록 보기 3. 종료하기");
+            int choose123 = sc.nextInt();
+                while (!rInput) {
+                    try {
+                        if (choose123 == 1) {
+                            System.out.println("3자리 숫자를 입력해주세요. \n이때 각 숫자는 1~9의 자연수이며, 동일한 숫자는 사용할 수 없습니다.");
+                            int input = sc.nextInt();
 
-        while (!rInput) {
+                            if (input >= 100 && input < 999) {
+                                inputList.add(input / 100);
+                                inputList.add((input / 10) % 10);
+                                inputList.add(input % 10);
 
-            try {
-                System.out.println("3자리 숫자를 입력해주세요. \n이때 각 숫자는 1~9의 자연수이며, 동일한 숫자는 사용할 수 없습니다.");
-                int input = sc.nextInt();
-
-                if (input >= 100 && input < 999) {
-                    inputList.add(input / 100);
-                    inputList.add((input / 10) % 10);
-                    inputList.add(input % 10);
-
-                    preparing.setInputList(inputList);
-                    if (inputList.get(0).equals(inputList.get(1)) || inputList.get(1).equals(inputList.get(2)) || inputList.get(2).equals(inputList.get(0))) {
-                        System.out.println("올바르지 않은 입력입니다.");
-                        inputList.clear();
-                    } else {
-                        rInput = true;
+                                preparing.setInputList(inputList);
+                                if (inputList.get(0).equals(inputList.get(1)) || inputList.get(1).equals(inputList.get(2)) || inputList.get(2).equals(inputList.get(0))) {
+                                    System.out.println("올바르지 않은 입력입니다.");
+                                    inputList.clear();
+                                } else {
+                                    rInput = true;
+                                }
+                            } else if (input < 100 || input > 999) {
+                                System.out.println("올바르지 않은 입력입니다.");
+                            }
+                        } else if (choose123 == 2) {
+                            System.out.println("해당 기능은 Lv3에서 제시됩니다.");
+                            inputList.clear();
+                            return inputList;
+                        } else if (choose123 == 3) {
+                            System.out.println("게임을 종료합니다.");
+                            System.exit(0);
+                        } else {
+                            System.out.println("올바르지 않은 입력입니다. 다시 입력해주세요.");
+                            sc.next();
+                        }
+                    } catch (InputMismatchException e) {
+                        System.out.println("올바르지 않은 입력입니다. 다시 입력해주세요.");
+                        sc.next();
                     }
-                } else if (input < 100 || input > 999) {
-                    System.out.println("올바르지 않은 입력입니다.");
+
                 }
             } catch (InputMismatchException e) {
                 System.out.println("올바르지 않은 입력입니다.");
                 sc.next();
-            }
-        }return inputList;
-    }
+
+            }return inputList;
+
+}
+
 
 
     public void checkSbo() {
